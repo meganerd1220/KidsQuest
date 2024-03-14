@@ -55,11 +55,9 @@ export const sendNewCredentials = async (name, lastn, email, username, password)
 
 export const sendNewChores = async (chore) => {}
 const firestore = getFirestore(app);
-const usersCollection = collection(firestore, 'Chores');
+const choresCollection = collection(firestore, 'Chores');
 
-firestore()
-  .collection('Chores')
-  .add({
+choresCollection.add({
     chore: chore,
   })
   .then(() => {
