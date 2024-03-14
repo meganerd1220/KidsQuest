@@ -52,3 +52,16 @@ export const sendNewCredentials = async (name, lastn, email, username, password)
     return false; // Error
   }
 };
+
+export const sendNewChores = async (chore) => {}
+const firestore = getFirestore(app);
+const usersCollection = collection(firestore, 'Chores');
+
+firestore()
+  .collection('Chores')
+  .add({
+    chore: chore,
+  })
+  .then(() => {
+    console.log('Chore added!');
+  });
