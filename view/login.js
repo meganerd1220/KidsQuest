@@ -11,14 +11,26 @@ const LoginScreen = ({ navigation }) => {
   const [username, setuser] = useState('');
   const [password, setpassword] = useState('');
 
-  const handleVerify = async () => {
-    const userExists = await verifyUserCredentials(username, password);
-    if (userExists) {
-      Alert.alert('User exists');
+const handleVerify = async () => {
+  const userData = await verifyUserCredentials(username, password);
+  if(!username || !password){
+    Alert.alert("Please enter information!!")
+
+  }else {
+    if (userData) {
+      navigation.reset({
+        index: 0,
+        routes: [{ name: 'Profiles' }],
+      });
+      navigation.navigate('Profiles', { UserName: username });
+      
     } else {
-      Alert.alert('Not valid');
+      Alert.alert('Incorrect Username or Password!\n Try again');
     }
-  };
+    
+  }
+
+};
 
   const signup = () => {
     navigation.navigate('SignUp');
@@ -72,5 +84,6 @@ const LoginScreen = ({ navigation }) => {
   );
 
 };
+
 
 export default LoginScreen;
