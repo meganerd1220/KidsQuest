@@ -4,7 +4,7 @@ import { StyleSheet, Text, TextInput, View, Button, ScrollView } from 'react-nat
 import { StatusBar } from 'expo-status-bar';
 import styles from './styles';
 
-const addChild = ({ navigation}) => {
+const AddChild = ({ navigation}) => {
     const [textInputValue1, setTextInputValue1] = useState('');
     const childNameChangeText = (text) => {
     setTextInputValue1(text);
@@ -21,4 +21,4 @@ const addChild = ({ navigation}) => {
     );
 }
 
-export default addChild;
+export default AddChild;

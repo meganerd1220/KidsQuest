@@ -12,12 +12,24 @@ const LoginScreen = ({ navigation }) => {
   const [password, setpassword] = useState('');
 
   const handleVerify = async () => {
-    const userExists = await verifyUserCredentials(username, password);
-    if (userExists) {
-      Alert.alert('User exists');
-    } else {
-      Alert.alert('Not valid');
+    const userData = await verifyUserCredentials(username, password);
+    if(!username || !password){
+      Alert.alert("Please enter information!!")
+
+    }else {
+      if (userData) {
+        navigation.reset({
+          index: 0,
+          routes: [{ name: 'Settings' }],
+        });
+        navigation.navigate('Settings', { userData: userData });
+        
+      } else {
+        Alert.alert('Incorrect Username or Password!\n Try again');
+      }
+      
     }
+
   };
 
   const signup = () => {
@@ -25,7 +37,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const forgotpassword = () => {
-    Alert.alert("Mamaste");
+    Alert.alert("Handle Operation");
   }
   const signInWithGoogle = async () => {
 

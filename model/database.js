@@ -1,6 +1,8 @@
 
 import { getFirestore, collection, getDocs, query, where, serverTimestamp, addDoc } from "firebase/firestore";
 import app from "./firebase";
+
+
 //Verify users in the application
 export const verifyUserCredentials = async (username, password) => {
   const firestore = getFirestore(app);
@@ -27,7 +29,11 @@ const getUserCount = async () => {
   return accountsSnapshot.size + 1;
 };
 
+const verifyEmailFormat = async (email) => {
+//handle right format of email
 
+
+}
 //send information to the database
 export const sendNewCredentials = async (name, lastn, email, username, password) => {
   const firestore = getFirestore(app);
@@ -53,3 +59,12 @@ export const sendNewCredentials = async (name, lastn, email, username, password)
   }
 };
 
+export const getUserCredentials = async (name, lastname, email, username) => {
+  const getUser = query(
+    collection(firestore, 'accounts'), 
+    where('name', '==', name),
+    where('lastname', '==', lastname), 
+    where ('email', '===', email), 
+    where ('username', '===', username)
+  );
+}; 

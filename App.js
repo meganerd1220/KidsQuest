@@ -1,21 +1,25 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Button, ScrollView } from 'react-native';
-import addChild from './view/addChild';
+import AddChild from './view/addChild';
 import SignUpScreen from './view/signup';
 import LoginScreen from './view/login';
+import SettingsScreen from './view/settings';
+import AccountScreen from './view/account';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
 function App() {
-  return(
+  return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} />
-        <Stack.Screen name="Add Child Profile" component={addChild} />
+        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Add Child Profile" component={AddChild} />
+        <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }} />
+        <Stack.Screen name="Account" component={AccountScreen} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
   )
