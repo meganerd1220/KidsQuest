@@ -6,13 +6,20 @@ import {
 import styles from './styles';
 
 
-
-const Settings = ({ navigation  }) => {
+const Settings = ({ navigation, route }) => {
+    const { params } = route;
+    const { name, lastname, email, username, userid } = params ?? {};
+    console.log("Received params in Settings:", params);
 
     const accountSettings = () => {
-        navigation.navigate('Account');
+        navigation.navigate('Account', { 
+            name: name,
+            lastname: lastname,
+            email: email,
+            username: username,
+            userid: userid
+        });
     };
-
 
     return (
         <SafeAreaView style={styles.container}>

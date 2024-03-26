@@ -4,66 +4,75 @@ import {
   KeyboardAvoidingView, Platform
 } from 'react-native';
 import styles from './styles';
-import { verifyUserCredentials } from '../model/database';
-
+import { verifyUserCredentials, getUserInfo } from '../model/database';
 
 const LoginScreen = ({ navigation }) => {
-  const [username, setuser] = useState('');
-  const [password, setpassword] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const handleVerify = async () => {
-    const userData = await verifyUserCredentials(username, password);
-    if(!username || !password){
-      Alert.alert("Please enter information!!")
-
-    }else {
-      if (userData) {
-        navigation.reset({
-          index: 0,
-          routes: [{ name: 'Settings' }],
-        });
-        navigation.navigate('Settings', { userData: userData });
-        
+    if (!username || !password) {
+      Alert.alert("Please enter username and password!");
+    } else {
+      const isUserValid = await verifyUserCredentials(username, password);
+      if (isUserValid) {
+        const userData = await getUserInfo(username);
+        if (userData) {
+          navigation.reset({
+            index: 0,
+            routes: [{
+              name: 'Settings',
+              params: {
+                name: userData.name,
+                lastname: userData.lastn,
+                email: userData.email,
+                username: username,
+                userid: userData.userid,
+              }
+            }],
+          });
+        } else {
+          Alert.alert('User data not found.');
+        }
       } else {
-        Alert.alert('Incorrect Username or Password!\n Try again');
+        Alert.alert('Incorrect Username or Password!\nTry again');
       }
-      
     }
-
   };
 
   const signup = () => {
     navigation.navigate('SignUp');
   };
 
-  const forgotpassword = () => {
-    Alert.alert("Handle Operation");
+  const forgotPassword = () => {
+    Alert.alert("Forgot Password?");
   }
-  const signInWithGoogle = async () => {
 
+  const signInWithGoogle = async () => {
+    // Implement Google sign-in functionality
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
-      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}>
         <Text style={styles.title}>Kids Quest</Text>
         <TextInput
           placeholder="Username"
           value={username}
-          onChangeText={(text) => setuser(text)}
+          onChangeText={(text) => setUsername(text)}
           style={styles.input}
         />
         <TextInput
           placeholder="Password"
           value={password}
-          onChangeText={(text) => setpassword(text)}
+          onChangeText={(text) => setPassword(text)}
           keyboardType="visible-password"
           secureTextEntry
           style={styles.input}
         />
-        <Text onPress={forgotpassword} style={styles.optionsaccount}>
+        <Text onPress={forgotPassword} style={styles.optionsaccount}>
           Forgot Password?
         </Text>
         <TouchableOpacity style={styles.button} onPress={handleVerify}>
@@ -82,7 +91,6 @@ const LoginScreen = ({ navigation }) => {
       </KeyboardAvoidingView>
     </SafeAreaView>
   );
-
 };
 
 export default LoginScreen;

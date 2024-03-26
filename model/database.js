@@ -1,27 +1,12 @@
 
 import { getFirestore, collection, getDocs, query, where, serverTimestamp, addDoc } from "firebase/firestore";
 import app from "./firebase";
+import { firestore } from "firebase/firestore";
 
 
 //Verify users in the application
-export const verifyUserCredentials = async (username, password) => {
-  const firestore = getFirestore(app);
 
-  const userQuery = query(
-    collection(firestore, 'accounts'), // 'users' is the table
-    where('username', '==', username),
-    where('password', '==', password)
-  );
-
-  try {
-    const querySnapshot = await getDocs(userQuery);
-    return querySnapshot.size > 0; // Return true if user exists, false otherwise
-  } catch (e) {
-    console.error(e);
-    return false; // Return false on error
-  }
-};
-
+//getting count of user accounts
 const getUserCount = async () => {
   const firestore = getFirestore(app);
   const accountsCollectionRef = collection(firestore, 'accounts');
@@ -30,7 +15,7 @@ const getUserCount = async () => {
 };
 
 const verifyEmailFormat = async (email) => {
-//handle right format of email
+  //handle right format of email
 
 
 }
@@ -59,12 +44,45 @@ export const sendNewCredentials = async (name, lastn, email, username, password)
   }
 };
 
-export const getUserCredentials = async (name, lastname, email, username) => {
-  const getUser = query(
-    collection(firestore, 'accounts'), 
-    where('name', '==', name),
-    where('lastname', '==', lastname), 
-    where ('email', '===', email), 
-    where ('username', '===', username)
+export const verifyUserCredentials = async (username, password) => {
+  const firestore = getFirestore(app);
+
+  const userQuery = query(
+    collection(firestore, 'accounts'), // 'accounts' is the table
+    where('username', '==', username),
+    where('password', '==', password)
   );
-}; 
+
+  try {
+    const querySnapshot = await getDocs(userQuery);
+    return querySnapshot.size > 0; // Return true if user exists, false otherwise
+  } catch (e) {
+    console.error(e);
+    return false; // Return false on error
+  }
+};
+
+export const getUserInfo = async (username) => {
+  const firestore = getFirestore(app);
+
+  const userQuery = query(
+    collection(firestore, 'accounts'),
+    where('username', '==', username)
+  );
+
+  try {
+    const querySnapshot = await getDocs(userQuery);
+    if (querySnapshot.size > 0) {
+      // Assuming there's only one user with the provided username
+      const userData = querySnapshot.docs[0].data();
+      // Extracting necessary user information
+      const { name, lastn, email, userid } = userData;
+      return { name, lastn, email, userid };
+    } else {
+      return null; // Return null if user not found
+    }
+  } catch (e) {
+    console.error(e);
+    return null; // Return null on error
+  }
+};
