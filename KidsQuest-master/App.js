@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Button, ScrollView } from 'react-native';
-import addChild from './view/addChild';
+//import addChild from './view/addChild';
+//import nestedCollection from './view/nestedCollection';
 import addChore from './view/addChore';
 import SignUpScreen from './view/signup';
 import LoginScreen from './view/login';
@@ -14,7 +15,7 @@ function App() {
   return(
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Add Chore" component={addChore} />
+        //<Stack.Screen name="nestedCollection" component={nestedCollection} />
         <Stack.Screen name="Login" component={LoginScreen} />
         <Stack.Screen name="SignUp" component={SignUpScreen} />
         <Stack.Screen name="Add Child Profile" component={addChild} />

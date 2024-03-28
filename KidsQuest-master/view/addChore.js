@@ -10,8 +10,7 @@ const AddChoreScreen = ({ navigation}) => {
   
     const addChore = async () => {
       try {
-        const success = await sendNewChores(chore);
-  
+        
         if (success) {
           Alert.alert("Chore added successfully!");
           // Optionally navigate to the login screen or perform other actions
@@ -26,8 +25,13 @@ const AddChoreScreen = ({ navigation}) => {
     };
     return (
     <View style={styles.container}>
-        <TextInput placeholder="Enter Chore" style={styles.input} onChangeText={(text) => setchore(text)} />
-        <Button title="Send"  onPress={addChoreScreen} />
+        <TextInput 
+        placeholder="Enter Chore" 
+        style={styles.input} 
+        value={chore}
+        onChangeText={(text) => setchore(text)} 
+        />
+        <Button title="Send"  onPress={sendNewChores(chore)} />
         <StatusBar style="auto" />
     </View>
     );

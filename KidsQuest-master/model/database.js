@@ -53,7 +53,7 @@ export const sendNewCredentials = async (name, lastn, email, username, password)
   }
 };
 
-export const sendNewChores = async (chore) => {}
+export const sendNewChores = async (chore) => {
 const firestore = getFirestore(app);
 const choresCollection = collection(firestore, 'Chores');
 
@@ -62,4 +62,5 @@ choresCollection.add({
   })
   .then(() => {
     console.log('Chore added!');
-  });
+  })
+};
