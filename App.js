@@ -6,22 +6,28 @@ import SignUpScreen from './view/signup';
 import LoginScreen from './view/login';
 import SettingsScreen from './view/settings';
 import AccountScreen from './view/account';
+import KidProfiles from './view/kidProfiles';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { UserIdProvider } from './view/userContext';
+
 
 const Stack = createStackNavigator();
 
 function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Add Child Profile" component={AddChild} />
-        <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="Account" component={AccountScreen} options={{ headerShown: false }} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <UserIdProvider>
+      <NavigationContainer>
+        <Stack.Navigator>
+          <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="KidProfiles" component={KidProfiles} options={{ headerShown: false }} />
+          <Stack.Screen name="AddChildProfile" component={AddChild} />
+          <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }} />
+          <Stack.Screen name="Account" component={AccountScreen} options={{ headerShown: false }} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </UserIdProvider>
   )
 }
 

@@ -1,5 +1,6 @@
 
 import { getFirestore, collection, getDocs, query, where, serverTimestamp, addDoc } from "firebase/firestore";
+import {Alert} from 'react-native';
 import app from "./firebase";
 import { firestore } from "firebase/firestore";
 
@@ -84,5 +85,58 @@ export const getUserInfo = async (username) => {
   } catch (e) {
     console.error(e);
     return null; // Return null on error
+  }
+};
+
+export async function getChildProfiles(userid) {
+  //const [children, setChildren] = useState('');
+  const firestore = getFirestore(app);
+  const childArray = [];
+
+  try {
+    const querySnapshot = await getDocs(collection(firestore, 'children'));  
+    querySnapshot.forEach((doc) => {
+      // Extract data from each document
+      const data = doc.data();
+      if(data.id == userid)
+        childArray.push(data);
+    });
+    //setChildren(childArray);
+    return childArray;
+  } catch (error) {
+    console.error('Error fetching users:', error);
+  }
+
+  //const userQuery = query(
+  //  collection(firestore, 'children'), // 'users' is the table
+  //  where('id', '==', id)
+  //);
+
+  //try {
+  //  const querySnapshot = await getDocs(userQuery);
+  //  return querySnapshot.size > 0; // Return true if user exists, false otherwise
+  //} catch (e) {
+  //  console.error(e);
+  //  return false; // Return false on error
+  //}
+};
+
+//Add child profile
+export const sendChildProfile = async (name, id) => {
+  const firestore = getFirestore(app);
+
+  try {
+    //const userCount = await getUserCount();
+
+    const newUserRef = await addDoc(collection(firestore, 'children'), {
+      name,
+      id,
+    });
+
+    console.log("Child added with ID: ", newUserRef.id);
+    return true; // success
+  } catch (e) {
+    console.error(e);
+    return false; // Error
   }
 };
