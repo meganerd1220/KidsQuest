@@ -10,10 +10,9 @@ import {
   Platform,
 } from 'react-native';
 import styles from './styles';
-import { sendNewCredentials } from '../model/database';
+import { sendNewCredentials, isEmailTaken, isUserTaken, verifyEmailFormat } from '../model/database';
 
-
-const SignUpScreen = ({ navigation}) => {
+const SignUpScreen = ({ navigation }) => {
   const [name, setname] = useState('');
   const [lastn, setlastn] = useState('');
   const [email, setemail] = useState('');
@@ -21,6 +20,26 @@ const SignUpScreen = ({ navigation}) => {
   const [password, setpassword] = useState('');
 
   const signup = async () => {
+    // Check email format
+    if (!verifyEmailFormat(email)) {
+      Alert.alert("Invalid Email", "Please enter a valid email address.");
+      return;
+    }
+
+    // Check if email is already taken
+    const emailTaken = await isEmailTaken(email);
+    if (emailTaken) {
+      Alert.alert("Email Taken", "This email is already associated with an account.");
+      return;
+    }
+
+    // Check if username is already taken
+    const userTaken = await isUserTaken(username);
+    if (userTaken) {
+      Alert.alert("Username Taken", "This username is already taken. Please choose another one.");
+      return;
+    }
+
     try {
       const success = await sendNewCredentials(name, lastn, email, username, password);
 
@@ -34,16 +53,16 @@ const SignUpScreen = ({ navigation}) => {
       console.error("Error creating account:", error.message);
       Alert.alert("An unexpected error occurred. Please try again.");
     }
-
   };
 
   const backlogin = () => {
     navigation.navigate('Login');
   };
 
-  const googlesign = () =>{
-    Alert.alert("Hola"); 
+  const googlesign = () => {
+    Alert.alert("Hola");
   }
+
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
@@ -101,6 +120,5 @@ const SignUpScreen = ({ navigation}) => {
     </SafeAreaView>
   );
 };
-
 
 export default SignUpScreen;

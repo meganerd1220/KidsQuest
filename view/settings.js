@@ -13,13 +13,13 @@ const Settings = ({ navigation, route }) => {
 
     const accountSettings = () => {
         navigation.navigate('Account', { 
-            name: name,
-            lastname: lastname,
-            email: email,
-            username: username,
-            userid: userid
+          name: name,
+          lastname: lastname,
+          email: email,
+          username: username,
+          userid: userid, // Passing userid 
         });
-    };
+      };
 
     return (
         <SafeAreaView style={styles.container}>

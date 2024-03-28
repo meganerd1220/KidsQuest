@@ -27,7 +27,7 @@ const LoginScreen = ({ navigation }) => {
                 lastname: userData.lastn,
                 email: userData.email,
                 username: username,
-                userid: userData.userid,
+                userid: userData.userid, 
               }
             }],
           });
