@@ -38,6 +38,12 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         marginTop: 50,
       },
+      buttonDelete: {
+        backgroundColor: "#FDFD96",
+        borderRadius: 2,
+        position: "absolute",
+        borderColor: "#007BFF"
+      },
       buttonText: {
         fontSize: 18,
         color: "#fff",

@@ -1,5 +1,5 @@
 
-import { getFirestore, collection, getDocs, query, where, serverTimestamp, addDoc } from "firebase/firestore";
+import { getFirestore, collection, getDocs, query, where, serverTimestamp, addDoc, doc, deleteDoc} from "firebase/firestore";
 import {Alert} from 'react-native';
 import app from "./firebase";
 import { firestore } from "firebase/firestore";
@@ -138,5 +138,25 @@ export const sendChildProfile = async (name, id) => {
   } catch (e) {
     console.error(e);
     return false; // Error
+  }
+};
+
+//Delete Child Profile
+export const deleteChildProfile = async (name, id) => {
+  const firestore = getFirestore(app);
+  try {
+    const querySnapshot = await getDocs(collection(firestore, 'children'));  
+    querySnapshot.forEach((doc) => {
+      // Extract data from each document
+      const data = doc.data();
+      if(data.id == id && data.name == name)
+        docName = doc;
+    });
+    
+    await deleteDoc(doc(firestore, "children", docName.id));
+
+    console.log('Document successfully deleted!');
+  } catch (error) {
+    console.error('Error removing document: ', error);
   }
 };
