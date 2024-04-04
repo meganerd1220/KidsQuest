@@ -11,7 +11,7 @@ import { useUserId } from './userContext';
     const Profile = ({ id, name, onDelete}) => {
         const Delete = () => {
           Alert.alert(`Profile ID: ${id}`, `Name: ${name}`);
-          deleteChildProfile(name, id).then(() => {
+          deleteChildProfile(id, name).then(() => {
             onDelete();
           });
         };

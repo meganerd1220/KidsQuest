@@ -15,6 +15,13 @@ const getUserCount = async () => {
   return accountsSnapshot.size + 1;
 };
 
+const getChildCount = async () => {
+  const firestore = getFirestore(app);
+  const accountsCollectionRef = collection(firestore, 'children');
+  const accountsSnapshot = await getDocs(accountsCollectionRef);
+  return accountsSnapshot.size + 1;
+};
+
 const verifyEmailFormat = async (email) => {
   //handle right format of email
 
@@ -98,7 +105,7 @@ export async function getChildProfiles(userid) {
     querySnapshot.forEach((doc) => {
       // Extract data from each document
       const data = doc.data();
-      if(data.id == userid)
+      if(data.parentId == userid)
         childArray.push(data);
     });
     //setChildren(childArray);
@@ -122,15 +129,16 @@ export async function getChildProfiles(userid) {
 };
 
 //Add child profile
-export const sendChildProfile = async (name, id) => {
+export const sendChildProfile = async (name, parentId) => {
   const firestore = getFirestore(app);
 
   try {
-    //const userCount = await getUserCount();
+    const childCount = await getChildCount();
 
     const newUserRef = await addDoc(collection(firestore, 'children'), {
       name,
-      id,
+      parentId,
+      id: `child${childCount}`,
     });
 
     console.log("Child added with ID: ", newUserRef.id);
@@ -142,7 +150,7 @@ export const sendChildProfile = async (name, id) => {
 };
 
 //Delete Child Profile
-export const deleteChildProfile = async (name, id) => {
+export const deleteChildProfile = async (id, name) => {
   const firestore = getFirestore(app);
   try {
     const querySnapshot = await getDocs(collection(firestore, 'children'));  
