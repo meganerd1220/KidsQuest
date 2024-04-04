@@ -13,7 +13,6 @@ import { useUserId } from './userContext';
           Alert.alert(`Profile ID: ${id}`, `Name: ${name}`);
           deleteChildProfile(id, name).then(() => {
             onDelete();
-            
           });
         };
 
