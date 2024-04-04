@@ -17,7 +17,7 @@ import { useUserId } from './userContext';
         };
     
         const goToChores = () => {
-            Alert.alert("GOTO CHORES");
+            navigation.navigate('AddChores');
         };
         
         return (
