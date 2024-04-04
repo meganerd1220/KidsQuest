@@ -6,6 +6,7 @@ import AddChoreScreen from './view/addChore';
 import SignUpScreen from './view/signup';
 import LoginScreen from './view/login';
 import SettingsScreen from './view/settings';
+import DisplayChoreScreen from './view/displayCHores';
 import AccountScreen from './view/account';
 import KidProfiles from './view/kidProfiles';
 import { NavigationContainer } from '@react-navigation/native';
@@ -23,6 +24,7 @@ function App() {
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
           <Stack.Screen name="KidProfiles" component={KidProfiles} options={{ headerShown: false }} />
+          <Stack.Screen name="DisplayChores" component={DisplayChoreScreen} options={{ headerShown: false }} />
           <Stack.Screen name="AddChores" component={AddChoreScreen} options={{ headerShown: false }} />
           <Stack.Screen name="AddChildProfile" component={AddChild} />
           <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }} />

@@ -43,7 +43,6 @@ const DisplayChoreScreen = ({ navigation}) => {
       fetchChores();
   }
 
-
     return (
       <SafeAreaView style={styles.container}>
         <FlatList
@@ -57,4 +56,4 @@ const DisplayChoreScreen = ({ navigation}) => {
     )
   };
 
-export default AddChoreScreen;
+export default DisplayChoreScreen;
