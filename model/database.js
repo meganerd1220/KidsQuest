@@ -168,3 +168,26 @@ export const deleteChildProfile = async (id, name) => {
     console.error('Error removing document: ', error);
   }
 };
+
+export const sendNewChores = async (chore, userId) => {
+  const firestore = getFirestore(app);
+  const choresCollection = collection(firestore, 'Chores');
+  //const { userId, setUserId } = useUserId();
+  try {
+    const success = await addDoc(choresCollection, {
+      chore,
+      parentid: userId,
+      completed: false
+    })
+    
+    if (success) {
+      Alert.alert("Chore added successfully!");
+      // Optionally navigate to a screen or perform other actions
+      };   
+
+  } catch (error) {
+    console.error("Error adding chore:", error.message);
+    Alert.alert("An unexpected error occurred. Please try again.");
+  }
+  
+  };
