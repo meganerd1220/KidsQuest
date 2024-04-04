@@ -3,24 +3,10 @@ import { getFirestore, collection, getDocs, query, where, serverTimestamp, addDo
 import {Alert} from 'react-native';
 import app from "./firebase";
 import { firestore } from "firebase/firestore";
-
+import 'react-native-get-random-values';
+import { v4 as uuidv4 } from 'uuid';
 
 //Verify users in the application
-
-//getting count of user accounts
-const getUserCount = async () => {
-  const firestore = getFirestore(app);
-  const accountsCollectionRef = collection(firestore, 'accounts');
-  const accountsSnapshot = await getDocs(accountsCollectionRef);
-  return accountsSnapshot.size + 1;
-};
-
-const getChildCount = async () => {
-  const firestore = getFirestore(app);
-  const accountsCollectionRef = collection(firestore, 'children');
-  const accountsSnapshot = await getDocs(accountsCollectionRef);
-  return accountsSnapshot.size + 1;
-};
 
 const verifyEmailFormat = async (email) => {
   //handle right format of email
@@ -32,8 +18,6 @@ export const sendNewCredentials = async (name, lastn, email, username, password)
   const firestore = getFirestore(app);
 
   try {
-    const userCount = await getUserCount();
-
     const newUserRef = await addDoc(collection(firestore, 'accounts'), {
       name,
       lastn,
@@ -41,7 +25,7 @@ export const sendNewCredentials = async (name, lastn, email, username, password)
       username,
       password,
       timestamp: serverTimestamp(),
-      userid: `user${userCount}`,
+      userid: uuidv4(),
     });
 
     console.log("User added with ID: ", newUserRef.id);
@@ -113,19 +97,6 @@ export async function getChildProfiles(userid) {
   } catch (error) {
     console.error('Error fetching users:', error);
   }
-
-  //const userQuery = query(
-  //  collection(firestore, 'children'), // 'users' is the table
-  //  where('id', '==', id)
-  //);
-
-  //try {
-  //  const querySnapshot = await getDocs(userQuery);
-  //  return querySnapshot.size > 0; // Return true if user exists, false otherwise
-  //} catch (e) {
-  //  console.error(e);
-  //  return false; // Return false on error
-  //}
 };
 
 //Add child profile
@@ -138,7 +109,7 @@ export const sendChildProfile = async (name, parentId) => {
     const newUserRef = await addDoc(collection(firestore, 'children'), {
       name,
       parentId,
-      id: `child${childCount}`,
+      id: uuidv4(),
     });
 
     console.log("Child added with ID: ", newUserRef.id);
