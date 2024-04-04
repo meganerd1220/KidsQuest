@@ -140,14 +140,15 @@ export const deleteChildProfile = async (id, name) => {
   }
 };
 
-export const sendNewChores = async (chore, userId) => {
+export const sendNewChores = async (chore, userId, childID) => {
   const firestore = getFirestore(app);
   const choresCollection = collection(firestore, 'Chores');
   //const { userId, setUserId } = useUserId();
   try {
     const success = await addDoc(choresCollection, {
       chore,
-      parentid: userId,
+      parentID: userId,
+      childID: childID,
       completed: false
     })
     
@@ -160,5 +161,24 @@ export const sendNewChores = async (chore, userId) => {
     console.error("Error adding chore:", error.message);
     Alert.alert("An unexpected error occurred. Please try again.");
   }
+};
+
+  export async function getChores(childID, userid) {
+    const firestore = getFirestore(app);
+    const choresArray = [];
   
+    try {
+      const choreQuery = await getDocs(collection(firestore, 'Chores'));  
+      querySnapshot.forEach((doc) => {
+        // Extract data from each document
+        const data = doc.data();
+        if(data.parentid == userid && data.id == childID && data.completed == false)
+      docName = doc;
+          choresArray.push(docName.chore);
+      });
+      return choresArray;
+    } catch (error) {
+      console.error('Error fetching chores:', error);
+    }
   };
+  
