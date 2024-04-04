@@ -6,7 +6,7 @@ import AddChoreScreen from './view/addChore';
 import SignUpScreen from './view/signup';
 import LoginScreen from './view/login';
 import SettingsScreen from './view/settings';
-import DisplayChoreScreen from './view/displayCHores';
+import DisplayChoreScreen from './view/displayChores';
 import AccountScreen from './view/account';
 import KidProfiles from './view/kidProfiles';
 import { NavigationContainer } from '@react-navigation/native';
