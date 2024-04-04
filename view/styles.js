@@ -30,7 +30,20 @@ const styles = StyleSheet.create({
         color: "#000",
         borderRadius: 20,    
       },
-    
+      choreButton: {
+        backgroundColor: "#007BFF",
+        paddingVertical: 20,
+        paddingHorizontal: 50,
+        borderRadius: 10,
+        marginTop: 50,
+      },
+      choreButtonText: {
+        fontSize: 18,
+        color: "#fff",
+        fontWeight: "bold",
+        textAlign: "center",
+        textTransform: "uppercase",
+      }, 
       button: {
         backgroundColor: "#007BFF",
         paddingVertical: 15,

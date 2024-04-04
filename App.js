@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, TextInput, View, Button, ScrollView } from 'react-native';
 import AddChild from './view/addChild';
+import AddChoreScreen from './view/addChore';
 import SignUpScreen from './view/signup';
 import LoginScreen from './view/login';
 import SettingsScreen from './view/settings';
@@ -22,6 +23,7 @@ function App() {
           <Stack.Screen name="Login" component={LoginScreen} options={{ headerShown: false }} />
           <Stack.Screen name="SignUp" component={SignUpScreen} options={{ headerShown: false }} />
           <Stack.Screen name="KidProfiles" component={KidProfiles} options={{ headerShown: false }} />
+          <Stack.Screen name="AddChores" component={AddChoreScreen} options={{ headerShown: false }} />
           <Stack.Screen name="AddChildProfile" component={AddChild} />
           <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Account" component={AccountScreen} options={{ headerShown: false }} />
