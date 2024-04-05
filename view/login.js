@@ -5,8 +5,10 @@ import {
 } from 'react-native';
 import styles from './styles';
 import { verifyUserCredentials, getUserInfo } from '../model/database';
+import { useUser  } from './userContext';
 
 const LoginScreen = ({ navigation }) => {
+  const { setUser } = useUser();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
@@ -18,19 +20,8 @@ const LoginScreen = ({ navigation }) => {
       if (isUserValid) {
         const userData = await getUserInfo(username);
         if (userData) {
-          navigation.reset({
-            index: 0,
-            routes: [{
-              name: 'Settings',
-              params: {
-                name: userData.name,
-                lastname: userData.lastn,
-                email: userData.email,
-                username: username,
-                userid: userData.userid, 
-              }
-            }],
-          });
+          setUser({ ...userData, username }); // Include the username in user data
+          navigation.navigate('KidProfiles');
         } else {
           Alert.alert('User data not found.');
         }
@@ -39,6 +30,7 @@ const LoginScreen = ({ navigation }) => {
       }
     }
   };
+  
 
   const signup = () => {
     navigation.navigate('SignUp');
@@ -94,3 +86,5 @@ const LoginScreen = ({ navigation }) => {
 };
 
 export default LoginScreen;
+
+
