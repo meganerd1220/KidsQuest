@@ -39,7 +39,7 @@ const PasswordReset = ({ navigation }) => {
 
         if (success) {
             Alert.alert("Success", "Password updated successfully.");
-            navigation.navigate('/settings'); 
+            navigation.navigate('Settings'); 
         } else {
             Alert.alert("Password Changed Sucessfully");
         }
