@@ -28,7 +28,7 @@ const AccountScreen = ({ navigation, route }) => {
         username: userName
       };
 
-      const updated = await updateUserInfo(user.userid, updatedFields, setUser);
+      const updated = await updateUserInfo(user?.userid, updatedFields, setUser);
 
       if (updated) {
         // Update the user context with the new user information
@@ -48,14 +48,7 @@ const AccountScreen = ({ navigation, route }) => {
       <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
         <Text style={styles.title}>Kids Quest</Text>
         <Text style={styles.title}>Account Settings</Text>
-        {/* Display userid as non-editable text input */}
-        <TextInput
-          placeholder="User ID"
-          value={Userid}
-          onChangeText={setUserid}
-          style={[styles.input, {backgroundColor: 'lightgray'}]}
-          editable={false} // Set editable to false
-        />
+        
         <TextInput
           placeholder="User ID"
           value={user.userid}
