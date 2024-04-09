@@ -1,5 +1,5 @@
 
-import { getFirestore, collection, getDocs, query, where, serverTimestamp, addDoc, doc, deleteDoc} from "firebase/firestore";
+import { getFirestore, collection, getDocs, query, where, serverTimestamp, addDoc, doc, updateDoc, deleteDoc} from "firebase/firestore";
 import {Alert} from 'react-native';
 import app from "./firebase";
 import { firestore } from "firebase/firestore";
@@ -7,6 +7,7 @@ import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
 
 //Verify users in the application
+const firestoreInstance = getFirestore(app);
 
 const verifyEmailFormat = async (email) => {
   //handle right format of email
@@ -15,10 +16,9 @@ const verifyEmailFormat = async (email) => {
 }
 //send information to the database
 export const sendNewCredentials = async (name, lastn, email, username, password) => {
-  const firestore = getFirestore(app);
 
   try {
-    const newUserRef = await addDoc(collection(firestore, 'accounts'), {
+    const newUserRef = await addDoc(collection(firestoreInstance, 'accounts'), {
       name,
       lastn,
       email,
@@ -37,10 +37,9 @@ export const sendNewCredentials = async (name, lastn, email, username, password)
 };
 
 export const verifyUserCredentials = async (username, password) => {
-  const firestore = getFirestore(app);
 
   const userQuery = query(
-    collection(firestore, 'accounts'), // 'accounts' is the table
+    collection(firestoreInstance, 'accounts'), // 'accounts' is the table
     where('username', '==', username),
     where('password', '==', password)
   );
@@ -55,10 +54,9 @@ export const verifyUserCredentials = async (username, password) => {
 };
 
 export const getUserInfo = async (username) => {
-  const firestore = getFirestore(app);
 
   const userQuery = query(
-    collection(firestore, 'accounts'),
+    collection(firestoreInstance, 'accounts'),
     where('username', '==', username)
   );
 
@@ -81,11 +79,10 @@ export const getUserInfo = async (username) => {
 
 export async function getChildProfiles(userid) {
   //const [children, setChildren] = useState('');
-  const firestore = getFirestore(app);
   const childArray = [];
 
   try {
-    const querySnapshot = await getDocs(collection(firestore, 'children'));  
+    const querySnapshot = await getDocs(collection(firestoreInstance, 'children'));  
     querySnapshot.forEach((doc) => {
       // Extract data from each document
       const data = doc.data();
@@ -101,12 +98,9 @@ export async function getChildProfiles(userid) {
 
 //Add child profile
 export const sendChildProfile = async (name, parentId) => {
-  const firestore = getFirestore(app);
 
   try {
-    const childCount = await getChildCount();
-
-    const newUserRef = await addDoc(collection(firestore, 'children'), {
+    const newUserRef = await addDoc(collection(firestoreInstance, 'children'), {
       name,
       parentId,
       id: uuidv4(),
@@ -122,9 +116,8 @@ export const sendChildProfile = async (name, parentId) => {
 
 //Delete Child Profile
 export const deleteChildProfile = async (id, name) => {
-  const firestore = getFirestore(app);
   try {
-    const querySnapshot = await getDocs(collection(firestore, 'children'));  
+    const querySnapshot = await getDocs(collection(firestoreInstance, 'children'));  
     querySnapshot.forEach((doc) => {
       // Extract data from each document
       const data = doc.data();
@@ -132,7 +125,7 @@ export const deleteChildProfile = async (id, name) => {
         docName = doc;
     });
     
-    await deleteDoc(doc(firestore, "children", docName.id));
+    await deleteDoc(doc(firestoreInstance, "children", docName.id));
 
     console.log('Document successfully deleted!');
   } catch (error) {
@@ -141,8 +134,7 @@ export const deleteChildProfile = async (id, name) => {
 };
 
 export const sendNewChores = async (chore, userId) => {
-  const firestore = getFirestore(app);
-  const choresCollection = collection(firestore, 'Chores');
+  const choresCollection = collection(firestoreInstance, 'Chores');
   //const { userId, setUserId } = useUserId();
   try {
     const success = await addDoc(choresCollection, {
@@ -162,3 +154,54 @@ export const sendNewChores = async (chore, userId) => {
   }
   
   };
+
+  // Update user info
+export const updateUserInfo = async (userid, updatedFields) => {
+  try {
+    const userQuery = query(
+      collection(firestoreInstance, 'accounts'),
+      where('userid', '==', userid)
+    );
+
+    const querySnapshot = await getDocs(userQuery);
+
+    if (querySnapshot.size > 0) {
+      const userDoc = querySnapshot.docs[0];
+      const userRef = doc(firestoreInstance, 'accounts', userDoc.id);
+
+      await updateDoc(userRef, updatedFields);
+
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+};
+
+// Update password
+export const updatePassword = async (userid, updatedFields) => {
+  try {
+    const userQuery = query(
+      collection(firestoreInstance, 'accounts'),
+      where('userid', '==', userid)
+    );
+
+    const querySnapshot = await getDocs(userQuery);
+
+    if (querySnapshot.size > 0) {
+      const userDoc = querySnapshot.docs[0];
+      const userRef = doc(firestoreInstance, 'accounts', userDoc.id);
+
+      await updateDoc(userRef, updatedFields);
+      return true;
+    } else {
+      return false;
+    }
+  } catch (e) {
+    console.error(e);
+    return false;
+  }
+};

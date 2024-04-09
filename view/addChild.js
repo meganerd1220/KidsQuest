@@ -3,12 +3,13 @@ import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, TextInput, View, Button, ScrollView, Alert} from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
-import { useUserId } from './userContext';
+import { useUser } from './userContext';
 import styles from './styles';
 
 const AddChild = ({ navigation}) => {
     const [childName, setChildName] = useState('');
-    const { userId, setUserId } = useUserId();
+    const { user, setUser } = useUser();
+    const [userId, setUserId] = useState(user?.userid ?? '');
 
     const sendChildProfileToFirebase = async () => {
         try {
