@@ -79,8 +79,6 @@ const styles = StyleSheet.create({
       googleButton: {
         flexDirection: 'column', 
         alignItems: 'center', 
-        
-        
       },
       googleIcon: {
         marginTop: 15, 
@@ -93,6 +91,14 @@ const styles = StyleSheet.create({
         fontSize: 17, 
         color: "white", 
         fontWeight: "bold",
+      },
+      btnSettings:{
+        backgroundColor: "#808080",
+        paddingVertical: 15,
+        paddingHorizontal: 30,
+        borderRadius: 50,
+        marginTop: 25,
+        marginBottom: 25
       }
   });
 

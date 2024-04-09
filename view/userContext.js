@@ -1,18 +1,15 @@
 import React, { createContext, useContext, useState } from 'react';
 
-// Create a new context
-const UserIdContext = createContext();
+const UserContext = createContext();
 
-// Create a provider for the context
-export const UserIdProvider = ({ children }) => {
-  const [userId, setUserId] = useState(null);
+export const UserProvider = ({ children }) => {
+  const [user, setUser] = useState(null);
 
   return (
-    <UserIdContext.Provider value={{ userId, setUserId }}>
+    <UserContext.Provider value={{ user, setUser }}>
       {children}
-    </UserIdContext.Provider>
+    </UserContext.Provider>
   );
 };
 
-// Custom hook for using UserIdContext
-export const useUserId = () => useContext(UserIdContext);
+export const useUser = () => useContext(UserContext);

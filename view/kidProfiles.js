@@ -1,12 +1,12 @@
 import { addDataToFirebase } from '../model/firebaseOperations';
 import React, { useEffect, useState, useCallback  } from 'react';
 import { useFocusEffect, Navigation} from '@react-navigation/native';
-import { StyleSheet, Text, Alert, TextInput, View, Button, ScrollView, Touchable, TouchableOpacity, FlatList } from 'react-native';
+import { StyleSheet, Text, Alert, TextInput, View, Button, ScrollView, Touchable, TouchableOpacity, TouchableHighlight, FlatList } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import styles from './styles';
 import { getChildProfiles, deleteChildProfile } from '../model/database';
 import { useRoute } from '@react-navigation/native';
-import { useUserId } from './userContext';
+import { useUser } from './userContext';
 
     const Profile = ({ id, name, onDelete, onProfilePress}) => {
         const Delete = () => {
@@ -17,7 +17,7 @@ import { useUserId } from './userContext';
         };
 
         const goToChores = () => {
-            onProfilePress();
+            Alert.alert('GOTO CHORES')
         };
         
         return (
@@ -31,7 +31,9 @@ import { useUserId } from './userContext';
     const KidProfiles = ({ navigation }) => {
         const [name, setName] = useState([]);
         const [childrens, setChildrens] = useState([]);
-        const { userId, setUserId } = useUserId();
+        const { user, setUser } = useUser();
+        const [userId, setUserId] = useState(user?.userid ?? '');
+
 
         const fetchProfiles = useCallback(async () => {
             try {
@@ -76,6 +78,9 @@ import { useUserId } from './userContext';
             <View>
                 <Button onPress={goToAddProfile} title="Add Profile" />
             </View>
+            <TouchableHighlight style={styles.btnSettings} onPress={() => navigation.navigate('Settings')}>
+                <Text>Settings</Text>
+            </TouchableHighlight>
         </View>
         );
     }
