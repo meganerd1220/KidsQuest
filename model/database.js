@@ -175,7 +175,7 @@ export const sendNewChores = async (chore, userId) => {
     }
   };
   
-  };
+  
 
   // Update user info
 export const updateUserInfo = async (userid, updatedFields) => {
