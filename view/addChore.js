@@ -21,7 +21,7 @@ const AddChoreScreen = ({ navigation}) => {
         const success = await sendNewChores(chore, userId);
       }
       catch (error) {
-        console.error("Error creating account:", error.message);
+        console.error("Error creating chore:", error.message);
         Alert.alert("An unexpected error occurred. Please try again.");
       } 
     };
