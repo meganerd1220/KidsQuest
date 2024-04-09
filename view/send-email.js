@@ -31,5 +31,3 @@ export async function sendEmail(to, subject, body, options = {}) {
 
     return Linking.openURL(url);
 }
-
-
