@@ -9,11 +9,42 @@ import { v4 as uuidv4 } from 'uuid';
 //Verify users in the application
 const firestoreInstance = getFirestore(app);
 
-const verifyEmailFormat = async (email) => {
-  //handle right format of email
+export const verifyEmailFormat = (email) => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return emailRegex.test(email);
+};
+// Check if email is already taken
+export const isEmailTaken = async (email) => {
+  try {
+    const userQuery = query(
+      collection(firestoreInstance, 'accounts'),
+      where('email', '==', email)
+    );
 
+    const querySnapshot = await getDocs(userQuery);
+    return querySnapshot.size > 0;
+  } catch (error) {
+    console.error('Error checking email:', error);
+    return true; // Consider it taken in case of an error
+  }
+};
 
-}
+// Check if username is already taken
+export const isUserTaken = async (username) => {
+  try {
+    const userQuery = query(
+      collection(firestoreInstance, 'accounts'),
+      where('username', '==', username)
+    );
+
+    const querySnapshot = await getDocs(userQuery);
+    return querySnapshot.size > 0;
+  } catch (error) {
+    console.error('Error checking username:', error);
+    return true; // Consider it taken in case of an error
+  }
+};
+
 //send information to the database
 export const sendNewCredentials = async (name, lastn, email, username, password) => {
 
