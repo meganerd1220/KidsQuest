@@ -25,7 +25,7 @@ export const isEmailTaken = async (email) => {
     return querySnapshot.size > 0;
   } catch (error) {
     console.error('Error checking email:', error);
-    return true; // Consider it taken in case of an error
+    return true; 
   }
 };
 
@@ -41,7 +41,7 @@ export const isUserTaken = async (username) => {
     return querySnapshot.size > 0;
   } catch (error) {
     console.error('Error checking username:', error);
-    return true; // Consider it taken in case of an error
+    return true; 
   }
 };
 
