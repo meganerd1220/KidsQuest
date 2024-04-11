@@ -140,7 +140,7 @@ export const sendNewChores = async (chore, userId) => {
     const success = await addDoc(choresCollection, {
       chore,
       parentID: userId,
-      childID: childID,
+      childID: "childID",
       completed: false
     })
     
@@ -154,6 +154,8 @@ export const sendNewChores = async (chore, userId) => {
     Alert.alert("An unexpected error occurred. Please try again.");
   }
 };
+
+
 
   export async function getChores(childID, userid) {
     const firestore = getFirestore(app);

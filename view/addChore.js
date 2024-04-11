@@ -5,20 +5,18 @@ import {
   TouchableOpacity,
   TextInput,
   Alert,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
 } from 'react-native';
 import styles from './styles';
 import { sendNewChores } from '../model/database';
 import { useUserId } from './userContext';
 
-const AddChoreScreen = ({ navigation}) => {
-    const [chore, setchore] = useState('');
-    const { userId, setUserId } = useUserId();
+const AddChoreScreen = ({ navigation }) => {
+    const [chore, setChore] = useState('');
+    const userId = useUserId();
+
     const addChore = async () => {
       try {
-        const success = await sendNewChores(chore, userId);
+        const success = await sendNewChores(chore, userId, childID);
       }
       catch (error) {
         console.error("Error creating chore:", error.message);
@@ -30,9 +28,9 @@ const AddChoreScreen = ({ navigation}) => {
     
         <TextInput 
         placeholder="Enter Chore" 
-        style={styles.input} 
+        style={styles.input}x 
         value={chore}
-        onChangeText={(text) => setchore(text)} 
+        onChangeText={(text) => setChore(text)} 
         />
          
         <TouchableOpacity style={styles.choreButton} onPress={addChore}>

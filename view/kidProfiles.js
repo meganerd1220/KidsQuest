@@ -8,7 +8,7 @@ import { getChildProfiles, deleteChildProfile } from '../model/database';
 import { useRoute } from '@react-navigation/native';
 import { useUser } from './userContext';
 
-    const Profile = ({ id, name, onDelete, onProfilePress}) => {
+    const Profile = ({ id, name, onDelete, onProfilePress, navigation}) => {
         const Delete = () => {
           Alert.alert(`Profile ID: ${id}`, `Name: ${name}`);
           deleteChildProfile(id, name).then(() => {
@@ -17,7 +17,7 @@ import { useUser } from './userContext';
         };
 
         const goToChores = () => {
-            Alert.alert('GOTO CHORES')
+            navigation.navigate("addChore"); 
         };
         
         return (
@@ -57,8 +57,9 @@ import { useUser } from './userContext';
         });
 
         const renderItem = ({ item }) => (
-            <Profile id={item.id} name={item.name} onDelete={RefreshPage} onProfilePress={goToChores}/>
+            <Profile id={item.id} name={item.name} onDelete={RefreshPage} onProfilePress={goToChores} navigation={navigation} />
         );
+        
 
         const goToAddProfile = () => {
             navigation.navigate('AddChildProfile');

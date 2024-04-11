@@ -17,7 +17,7 @@ const AddChild = ({ navigation}) => {
       
             if (success) {
               Alert.alert("Profile created successfully!");
-              // Optionally navigate to the login screen or perform other actions
+              navigation.navigate('KidProfiles');
             } else {
               Alert.alert("Error creating profile. Please try again.");
             }
@@ -25,7 +25,6 @@ const AddChild = ({ navigation}) => {
             console.error("Error creating profile:", error.message);
             Alert.alert("An unexpected error occurred. Please try again.");
           }
-        navigation.navigate('KidProfiles');
     }
     return (
     <View style={styles.container}>

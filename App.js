@@ -27,7 +27,8 @@ function App() {
           <Stack.Screen name="KidProfiles" component={KidProfiles} options={{ headerShown: false }} />
           <Stack.Screen name="DisplayChores" component={DisplayChoreScreen} options={{ headerShown: false }} />
           <Stack.Screen name="AddChores" component={AddChoreScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="AddChildProfile" component={AddChild} />
+          <Stack.Screen name="AddChildProfile" component={AddChild} options={{headerShown:false}}/>
+          <Stack.Screen name="addChore" component={AddChoreScreen} options={{headerShown:false}}/>
           <Stack.Screen name="Settings" component={SettingsScreen} options={{ headerShown: false }} />
           <Stack.Screen name="Account" component={AccountScreen} options={{ headerShown: false }} />
           <Stack.Screen name="PasswordReset" component={PasswordReset} options={{ headerShown: false }} />

@@ -13,3 +13,5 @@ export const UserProvider = ({ children }) => {
 };
 
 export const useUser = () => useContext(UserContext);
+
+export const useUserId = () => useContext(UserContext).user?.userid;
