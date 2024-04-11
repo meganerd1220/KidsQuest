@@ -37,7 +37,7 @@ const LoginScreen = ({ navigation }) => {
   };
 
   const forgotPassword = () => {
-    Alert.alert("Forgot Password?");
+   navigation.navigate("forgotPassword"); 
   }
 
   const signInWithGoogle = async () => {
