@@ -138,6 +138,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
   },
+  itemContainer: {
+    backgroundColor: '#fff',
+    padding: 20,
+    marginVertical: 8,
+    marginHorizontal: 16,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#007BFF',
+  },
+  itemText: {
+    fontSize: 18,
+    color: '#000',
+  },
+  
 });
 
 

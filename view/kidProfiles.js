@@ -1,90 +1,73 @@
-import { addDataToFirebase } from '../model/firebaseOperations';
-import React, { useEffect, useState, useCallback  } from 'react';
-import { useFocusEffect, Navigation} from '@react-navigation/native';
-import { StyleSheet, Text, Alert, TextInput, View, Button, ScrollView, Touchable, TouchableOpacity, TouchableHighlight, FlatList } from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import styles from './styles';
-import { getChildProfiles, deleteChildProfile } from '../model/database';
-import { useRoute } from '@react-navigation/native';
+// KidProfiles.js
+import React, { useState, useCallback } from 'react';
+import { View, Button, FlatList, Text, TouchableOpacity } from 'react-native';
+import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useUser } from './userContext';
+import { getChildProfiles, deleteChildProfile } from '../model/database';
+import styles from './styles';
 
-    const Profile = ({ id, name, onDelete, onProfilePress, navigation}) => {
-        const Delete = () => {
-          Alert.alert(`Profile ID: ${id}`, `Name: ${name}`);
-          deleteChildProfile(id, name).then(() => {
-            onDelete();
-          });
-        };
+const Profile = ({ id, name, onDelete, navigation }) => {
+  const goToChores = () => {
+    navigation.navigate("addChore", { childID: id });
+  };
 
-        const goToChores = () => {
-            navigation.navigate("addChore"); 
-        };
-        
-        return (
-          <TouchableOpacity style={styles.button} onPress={goToChores}>
-            <Text  title={name} color="white" >{name}</Text>
-            <Button style={styles.buttonDelete} title={"Delete Profile"} onPress={Delete} color="white" />
-          </TouchableOpacity>  
-        );
-      };
+  return (
+    <TouchableOpacity style={styles.button} onPress={goToChores}>
+      <Text title={name} color="white">{name}</Text>
+      <Button style={styles.buttonDelete} title={"Delete Profile"} onPress={onDelete} color="white" />
+    </TouchableOpacity>  
+  );
+};
 
-    const KidProfiles = ({ navigation }) => {
-        const [name, setName] = useState([]);
-        const [childrens, setChildrens] = useState([]);
-        const { user, setUser } = useUser();
-        const [userId, setUserId] = useState(user?.userid ?? '');
+const KidProfiles = () => {
+  const [childrens, setChildrens] = useState([]);
+  const { user } = useUser();
+  const [userId, setUserId] = useState(user?.userid ?? '');
+  const navigation = useNavigation();
 
-
-        const fetchProfiles = useCallback(async () => {
-            try {
-                const KIDS = await getChildProfiles(userId);
-                if (KIDS) {
-                    setChildrens(KIDS);
-                } else {
-                    console.error('Error retrieving data');
-                }
-            } catch (error) {
-                console.error('Error fetching child profiles:', error);
-            }
-        });
-
-        const RefreshPage = () => {
-            fetchProfiles();
-        }
-
-        useFocusEffect(() => {
-            fetchProfiles();
-        });
-
-        const renderItem = ({ item }) => (
-            <Profile id={item.id} name={item.name} onDelete={RefreshPage} onProfilePress={goToChores} navigation={navigation} />
-        );
-        
-
-        const goToAddProfile = () => {
-            navigation.navigate('AddChildProfile');
-        };
-
-        const goToChores = () => {
-            navigation.navigate('DisplayChores');
-        };
-
-        return (
-        <View style={styles.container}>
-            <FlatList
-                data={childrens}
-                renderItem={renderItem}
-            />
-            <StatusBar style="auto" />
-            <View>
-                <Button onPress={goToAddProfile} title="Add Profile" />
-            </View>
-            <TouchableHighlight style={styles.btnSettings} onPress={() => navigation.navigate('Settings')}>
-                <Text>Settings</Text>
-            </TouchableHighlight>
-        </View>
-        );
+  const fetchProfiles = useCallback(async () => {
+    try {
+      const KIDS = await getChildProfiles(userId);
+      if (KIDS) {
+        setChildrens(KIDS);
+      } else {
+        console.error('Error retrieving data');
+      }
+    } catch (error) {
+      console.error('Error fetching child profiles:', error);
     }
+  });
 
+  useFocusEffect(() => {
+    fetchProfiles();
+  });
+
+  const onDeleteProfile = () => {
+    fetchProfiles();
+  };
+
+  const renderItem = ({ item }) => (
+    <Profile id={item.id} name={item.name} onDelete={onDeleteProfile} navigation={navigation} />
+  );
+
+  const goToAddProfile = () => {
+    navigation.navigate('AddChildProfile');
+  };
+
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={childrens}
+        renderItem={renderItem}
+      />
+      <View>
+        <Button onPress={goToAddProfile} title="Add Profile" />
+      </View>
+      <TouchableOpacity style={styles.btnSettings} onPress={() => navigation.navigate('Settings')}>
+        <Text>Settings</Text>
+      </TouchableOpacity>
+    </View>
+  );
+};
 
 export default KidProfiles;
