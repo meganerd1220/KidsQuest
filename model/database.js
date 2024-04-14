@@ -187,24 +187,25 @@ export const sendNewChores = async (chore, userId, childID) => {
 
 
 
-  export async function getChores(childID, userid) {
-    const firestore = getFirestore(app);
-    const choresArray = [];
-  
-    try {
-      const choreQuery = await getDocs(collection(firestore, 'Chores'));  
-      querySnapshot.forEach((doc) => {
-        // Extract data from each document
-        const data = doc.data();
-        if(data.parentid == userid && data.id == childID && data.completed == false)
-      docName = doc;
-          choresArray.push(docName.chore);
-      });
-      return choresArray;
-    } catch (error) {
-      console.error('Error fetching chores:', error);
-    }
-  };
+export async function getChores(childID, userid) {
+  const firestore = getFirestore(app);
+  const choresArray = [];
+
+  try {
+    const choreQuerySnapshot = await getDocs(collection(firestore, 'Chores'));
+    choreQuerySnapshot.forEach((doc) => {
+      const data = doc.data();
+      if (data.parentID === userid && data.childID === childID && !data.completed) {
+        choresArray.push(data.chore);
+      }
+    });
+    return choresArray;
+  } catch (error) {
+    console.error('Error fetching chores:', error);
+    throw error;
+  }
+}
+
   
   
 

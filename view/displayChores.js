@@ -1,59 +1,48 @@
-import React, { useState } from 'react';
-import {
-  SafeAreaView,
-  Text,
-  TouchableOpacity,
-  TextInput,
-  Alert,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-  FlatList
-} from 'react-native';
-import styles from './styles';
+// displayChores.js
+
+import React, { useState, useEffect } from 'react';
+import { View, Text, FlatList, TouchableOpacity } from 'react-native';
 import { getChores } from '../model/database';
-import { useUserId } from './userContext';
-import { useChildID, useChildName } from './childContext';
+import { useUser } from './userContext';
+import { useRoute } from '@react-navigation/native';
+import styles from './styles';
 
+const DisplayChoresScreen = () => {
+  const { user } = useUser();
+  const userId = user.userid;
+  const route = useRoute();
+  const childID = route.params?.childID;
+  const [chores, setChores] = useState([]);
 
-const DisplayChoreScreen = ({ navigation}) => {
-    const { userId, setUserId } = useUserId();
-    const [ choreList, setChoreList ] = useState([]);
-    const { childID } = useChildID();
-    const { childName } = useChildName();
-    displayChores(childID, userId);
-    const fetchChores = async () => {
-      try {
-        const success = await getChores(childID, userId);
-        if (success)
-        {
-          setChoreList(success);
-        }
-        else {
-          console.error('Error getting chores')
-        }
-      }
-      catch (error) {
-        console.error("Error displaying chores:", error.message);
-        Alert.alert("An unexpected error occurred. Please try again.");
-      } 
-    };
+  useEffect(() => {
+    fetchChores();
+  }, []);
 
-    const RefreshPage = () => {
-      fetchChores();
-  }
-
-    return (
-      <SafeAreaView style={styles.container}>
-        <FlatList
-                data={choreList}
-                //renderItem={renderItem}
-            >
-            <Text> test</Text>
-        </FlatList>
-            <StatusBar style="auto" />
-      </SafeAreaView>
-    )
+  const fetchChores = async () => {
+    try {
+      const choresData = await getChores(childID, userId);
+      setChores(choresData);
+    } catch (error) {
+      console.error('Error fetching chores:', error);
+    }
   };
 
-export default DisplayChoreScreen;
+  const renderItem = ({ item }) => (
+    <TouchableOpacity style={styles.itemContainer}>
+      <Text style={styles.itemText}>{item}</Text>
+    </TouchableOpacity>
+  );
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Chores List</Text>
+      <FlatList
+        data={chores}
+        renderItem={renderItem}
+        keyExtractor={(item, index) => index.toString()}
+      />
+    </View>
+  );
+};
+
+export default DisplayChoresScreen;

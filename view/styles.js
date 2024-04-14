@@ -19,7 +19,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 40,
     color: "#fff",
-    marginBottom: 20,
+    marginBottom: 50,
+    marginTop: 70,  
     fontWeight: "bold",
   },
   input: {
