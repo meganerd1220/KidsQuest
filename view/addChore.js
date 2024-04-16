@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, SafeAreaView, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { View, Image, SafeAreaView, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { sendNewChores } from '../model/database';
 import { useUserId } from './userContext';
 import { useRoute, useNavigation } from '@react-navigation/native';
@@ -39,6 +39,8 @@ const AddChoreScreen = () => {
         <Image style={styles.minilogo} source={require('../images/logo.png')} />
       </SafeAreaView >
       <SafeAreaView style={styles.squareContainer}>
+      <View style={{ height: 50 }} /> 
+
       <Image style={styles.minilogo} source={require('../images/logo.png')} />
 
       <TextInput

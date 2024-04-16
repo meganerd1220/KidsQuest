@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Image, SafeAreaView, Text, TouchableOpacity, TextInput, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import {View, Image, SafeAreaView, Text, TouchableOpacity, TextInput, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import styles from './styles';
 import { verifyUserCredentials, getUserInfo } from '../model/database';
 import { useUser } from './userContext';
@@ -46,7 +46,7 @@ const LoginScreen = ({ navigation }) => {
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}>
         <Image style={styles.logo} source={require('../images/logo.png')} />
-        <Text style={styles.title}>Kids Quest</Text>
+        <View style={{ height: 50 }} /> 
         <SafeAreaView style={styles.squareContainer}>
             <TextInput
               placeholder="Username"

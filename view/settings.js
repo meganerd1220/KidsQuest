@@ -16,9 +16,9 @@ const Settings = ({ navigation }) => {
   const support = () =>{
     navigation.navigate('Suport'); 
   }; 
-  const notification = () =>{
-    navigation.navigate('Notifications'); 
-  };
+  // const notification = () =>{
+  //   navigation.navigate('Notifications'); 
+  // };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -31,16 +31,13 @@ const Settings = ({ navigation }) => {
         style={styles.squareContainer}>
           <SafeAreaView styles= {styles.squareContainer}>
         <Text style={styles.title}>SETTINGS</Text>
+
         <TouchableOpacity style={styles.button} onPress={accountSettings}>
           <Text style={styles.buttonText}> Account Settings</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button} onPress={passwordReset}>
           <Text style={styles.buttonText}> Password Reset</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.button} onPress={notification}>
-          <Text style={styles.buttonText}> Notifications</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.button} onPress={support}>

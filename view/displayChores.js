@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Image, SafeAreaView, Text, FlatList, TouchableOpacity } from 'react-native';
-import { getChores } from '../model/database';
+import { Image, SafeAreaView, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { getChores, deleteChore } from '../model/database'; // Import deleteChore function
 import { useUser } from './userContext';
 import { useRoute } from '@react-navigation/native';
 import styles from './styles';
@@ -28,8 +28,22 @@ const DisplayChoresScreen = () => {
   const renderItem = ({ item }) => (
     <SafeAreaView style={styles.choreItem}>
       <Text style={styles.choreText}>{item}</Text>
+      <TouchableOpacity onPress={() => handleDeleteChore(item)}>
+        <Text style={styles.settingsButton}>Delete</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   );
+
+  const handleDeleteChore = async (chore) => {
+    try {
+      await deleteChore(userId, childID, chore);
+      fetchChores();
+      Alert.alert('Chore deleted successfully!');
+    } catch (error) {
+      console.error('Error deleting chore:', error);
+      Alert.alert('An unexpected error occurred while deleting the chore. Please try again.');
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -38,7 +52,6 @@ const DisplayChoresScreen = () => {
         <Image style={styles.minilogo} source={require('../images/logo.png')} />
       </SafeAreaView >
       <SafeAreaView style={styles.squareContainer}>
-
         <Text style={styles.title}>Chores List</Text>
         <FlatList
           data={chores}

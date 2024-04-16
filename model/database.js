@@ -1,6 +1,6 @@
 
-import { getFirestore, collection, getDocs, query, where, serverTimestamp, addDoc, doc, updateDoc, deleteDoc} from "firebase/firestore";
-import {Alert} from 'react-native';
+import { getFirestore, collection, getDocs, query, where, serverTimestamp, addDoc, doc, updateDoc, deleteDoc } from "firebase/firestore";
+import { Alert } from 'react-native';
 import app from "./firebase";
 import { firestore } from "firebase/firestore";
 import 'react-native-get-random-values';
@@ -25,7 +25,7 @@ export const isEmailTaken = async (email) => {
     return querySnapshot.size > 0;
   } catch (error) {
     console.error('Error checking email:', error);
-    return true; 
+    return true;
   }
 };
 
@@ -41,7 +41,7 @@ export const isUserTaken = async (username) => {
     return querySnapshot.size > 0;
   } catch (error) {
     console.error('Error checking username:', error);
-    return true; 
+    return true;
   }
 };
 
@@ -112,11 +112,11 @@ export async function getChildProfiles(userid) {
   const childArray = [];
 
   try {
-    const querySnapshot = await getDocs(collection(firestoreInstance, 'children'));  
+    const querySnapshot = await getDocs(collection(firestoreInstance, 'children'));
     querySnapshot.forEach((doc) => {
       // Extract data from each document
       const data = doc.data();
-      if(data.parentId == userid)
+      if (data.parentId == userid)
         childArray.push(data);
     });
     //setChildren(childArray);
@@ -147,14 +147,14 @@ export const sendChildProfile = async (name, parentId) => {
 //Delete Child Profile
 export const deleteChildProfile = async (id, name) => {
   try {
-    const querySnapshot = await getDocs(collection(firestoreInstance, 'children'));  
+    const querySnapshot = await getDocs(collection(firestoreInstance, 'children'));
     querySnapshot.forEach((doc) => {
       // Extract data from each document
       const data = doc.data();
-      if(data.id == id && data.name == name)
+      if (data.id == id && data.name == name)
         docName = doc;
     });
-    
+
     await deleteDoc(doc(firestoreInstance, "children", docName.id));
 
     console.log('Document successfully deleted!');
@@ -173,10 +173,10 @@ export const sendNewChores = async (chore, userId, childID) => {
       childID: childID, // Use the passed childID
       completed: false
     });
-    
+
     if (success) {
       Alert.alert("Chore added successfully!");
-    };   
+    };
 
   } catch (error) {
     console.error("Error adding chore:", error.message);
@@ -206,10 +206,10 @@ export async function getChores(childID, userid) {
   }
 }
 
-  
-  
 
-  // Update user info
+
+
+// Update user info
 export const updateUserInfo = async (userid, updatedFields) => {
   try {
     const userQuery = query(
@@ -257,5 +257,22 @@ export const updatePassword = async (userid, updatedFields) => {
   } catch (e) {
     console.error(e);
     return false;
+  }
+};
+//Delete Chore
+export const deleteChore = async (parentId, childId, chore) => {
+  try {
+    const querySnapshot = await getDocs(collection(firestoreInstance, 'Chores'));
+    querySnapshot.forEach((doc) => {
+      // Extract data from each document
+      const data = doc.data();
+      if (data.parentID === parentId && data.childID === childId && data.chore === chore)
+        docName = doc;
+    });
+    await deleteDoc(doc(firestoreInstance, "Chores", docName.id));
+    console.log('Document successfully deleted!');
+  } catch (error) {
+    console.error('Error removing document: ', error);
+    throw error;
   }
 };
