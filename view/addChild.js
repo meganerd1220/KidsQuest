@@ -1,6 +1,6 @@
 import { sendChildProfile } from '../model/database';
 import React, { useEffect, useState } from 'react';
-import { Image, SafeAreaView, StyleSheet, Text, TextInput, View, Button, ScrollView, Alert } from 'react-native';
+import { TouchableOpacity, Image, SafeAreaView, StyleSheet, Text, TextInput, View, Button, ScrollView, Alert } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { StatusBar } from 'expo-status-bar';
 import { useUser } from './userContext';
@@ -25,7 +25,10 @@ const AddChild = ({ navigation }) => {
       console.error("Error creating profile:", error.message);
       Alert.alert("An unexpected error occurred. Please try again.");
     }
-  }
+  };
+  const addProfilePicture = async() =>{
+    Alert.alert("Add Profile Picture"); 
+  }; 
   return (
     <SafeAreaView style={styles.container}>
       <SafeAreaView style={[styles.topContainer, styles.topContainerProfiles]}>
@@ -33,9 +36,19 @@ const AddChild = ({ navigation }) => {
         <Image style={styles.minilogo} source={require('../images/logo.png')} />
       </SafeAreaView >
       <View style={styles.squareContainer}>
-      <Image style={styles.minilogo} source={require('../images/logo.png')} />
+      <Text style={styles.title}>ADD PROFILE</Text>
+
+        <View style={styles.roundImage}>
+          <Image style={ styles.roundImage } source={require('../images/profile.jpg')} />
+        </View>
+        <TouchableOpacity style={styles.profilePicButton} onPress={addProfilePicture}>
+          <Text style={styles.profilePicButton}>Add Profile Picture</Text>
+        </TouchableOpacity>
         <TextInput placeholder="Enter Kids Name" style={styles.input} onChangeText={(text) => setChildName(text)} />
-        <Button title="Send" style ={styles.ProfileButton} onPress={sendChildProfileToFirebase} />
+        <View style={{ height: 50 }} /> 
+        <TouchableOpacity style={[styles.settingsButton, styles.addFormat]} onPress={sendChildProfileToFirebase}>
+          <Text style={styles.buttonText}>Send</Text>
+        </TouchableOpacity>
         <StatusBar style="auto" />
       </View>
 

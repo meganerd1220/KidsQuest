@@ -127,6 +127,16 @@ const styles = StyleSheet.create({
     left: 100
 
   },
+  title2: {
+    fontSize: 40,
+    color: "#fff",
+    fontFamily: '',
+    marginBottom: 30,
+    marginTop: 20,
+    fontWeight: "bold",
+    marginBottom: 1,
+
+  },
   input: {
     backgroundColor: "#fff",
     padding: 10,
@@ -155,6 +165,15 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5, 
   },
+  profilePicButton: {
+   color: "#FEFDEC", 
+   fontWeight: "bold",
+   fontSize: 16,
+   marginTop: 5, 
+   marginBottom: 10 
+
+  },
+
 
   buttonText: {
     fontSize: 18,
@@ -214,6 +233,23 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 15,
   },
+  roundImage: {
+    width: 200,
+    height: 200,
+    resizeMode: 'contain',
+    borderRadius: 100, 
+    backgroundColor: 'gray', 
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  profileImage:{
+    width: 200, 
+    height: 200,
+    resizeMode: 'contain',
+    borderRadius: 50, 
+
+  }
 });
 
 export default styles;
