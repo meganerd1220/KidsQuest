@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import {Image, SafeAreaView, Text, TouchableOpacity, TextInput, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import styles from './styles';
 import { updateUserInfo } from '../model/database';
 import { useUser } from './userContext';
@@ -45,7 +45,12 @@ const AccountScreen = ({ navigation, route }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'} style={styles.container}>
+      <SafeAreaView style={[styles.topContainer, styles.topContainerProfiles]}>
+      <Text style={styles.titleParent}>Welcome {user.name}</Text>
+        <Image style={styles.minilogo} source={require('../images/logo.png')} />
+      </SafeAreaView >
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+       style={styles.squareContainer}>
         <Text style={styles.title}>Kids Quest</Text>
         <Text style={styles.title}>Account Settings</Text>
         

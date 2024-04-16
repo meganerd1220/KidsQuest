@@ -1,5 +1,5 @@
 import React from 'react';
-import { SafeAreaView, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform } from 'react-native';
+import {Image, SafeAreaView, Text, TouchableOpacity, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import styles from './styles';
 import { useUser } from './userContext';
 
@@ -22,11 +22,15 @@ const Settings = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.topContainer, styles.topContainerProfiles]}>
+      <Text style={styles.titleParent}>Welcome {user.name}</Text>
+        <Image style={styles.minilogo} source={require('../images/logo.png')} />
+      </SafeAreaView >
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.container}>
-        <Text style={styles.title}>Settings</Text>
-        <Text style={styles.title}>Welcome {user.name}</Text>
+        style={styles.squareContainer}>
+          <SafeAreaView styles= {styles.squareContainer}>
+        <Text style={styles.title}>SETTINGS</Text>
         <TouchableOpacity style={styles.button} onPress={accountSettings}>
           <Text style={styles.buttonText}> Account Settings</Text>
         </TouchableOpacity>
@@ -42,6 +46,7 @@ const Settings = ({ navigation }) => {
         <TouchableOpacity style={styles.button} onPress={support}>
           <Text style={styles.buttonText}> Support</Text>
         </TouchableOpacity>
+        </SafeAreaView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

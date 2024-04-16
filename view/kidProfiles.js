@@ -1,6 +1,5 @@
-// KidProfiles.js
 import React, { useState, useCallback } from 'react';
-import { View, Button, FlatList, Text, TouchableOpacity } from 'react-native';
+import { Alert, Button, FlatList, Text, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useUser } from './userContext';
 import { getChildProfiles, deleteChildProfile } from '../model/database';
@@ -12,10 +11,12 @@ const Profile = ({ id, name, onDelete, navigation }) => {
   };
 
   return (
-    <TouchableOpacity style={styles.button} onPress={goToChores}>
-      <Text title={name} color="white">{name}</Text>
-      <Button style={styles.buttonDelete} title={"Delete Profile"} onPress={onDelete} color="white" />
-    </TouchableOpacity>  
+    <SafeAreaView style={[styles.container, styles.ContainerProfiles]}>
+      <TouchableOpacity style={styles.ProfileButton} onPress={goToChores}>
+        <Text title={name} color="white">{name}</Text>
+        <Button style={styles.buttonText} title={"Delete Profile"} onPress={onDelete} />
+      </TouchableOpacity>
+    </SafeAreaView>
   );
 };
 
@@ -42,12 +43,19 @@ const KidProfiles = () => {
     fetchProfiles();
   });
 
-  const onDeleteProfile = () => {
-    fetchProfiles();
+  const onDeleteProfile = async (id, name) => {
+    try {
+      await deleteChildProfile(id, name);
+      fetchProfiles();
+      Alert.alert('Success', 'Child profile deleted successfully.');
+
+    } catch (error) {
+      console.error('Error deleting child profile:', error);
+    }
   };
 
   const renderItem = ({ item }) => (
-    <Profile id={item.id} name={item.name} onDelete={onDeleteProfile} navigation={navigation} />
+    <Profile id={item.id} name={item.name} onDelete={() => onDeleteProfile(item.id, item.name)} navigation={navigation} />
   );
 
   const goToAddProfile = () => {
@@ -55,18 +63,24 @@ const KidProfiles = () => {
   };
 
   return (
-    <View style={styles.container}>
-      <FlatList
-        data={childrens}
-        renderItem={renderItem}
-      />
-      <View>
-        <Button onPress={goToAddProfile} title="Add Profile" />
-      </View>
-      <TouchableOpacity style={styles.btnSettings} onPress={() => navigation.navigate('Settings')}>
-        <Text>Settings</Text>
-      </TouchableOpacity>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.topContainer, styles.topContainerProfiles]}>
+        <Text style={styles.titleParent}>Welcome {user.name}</Text>
+        <Image style={styles.minilogo} source={require('../images/logo.png')} />
+      </SafeAreaView >
+      <SafeAreaView style={styles.container}>
+        <TouchableOpacity style={[styles.settingsButton, styles.settingsFormat]} onPress={() => navigation.navigate('Settings')}>
+          <Text style={styles.buttonText}>Settings</Text>
+        </TouchableOpacity>
+        <FlatList style={[styles.ContainerProfiles, styles.containerFirstProfile]}
+          data={childrens}
+          renderItem={renderItem}
+        />
+        <TouchableOpacity style={[styles.settingsButton, styles.addFormat]} onPress={goToAddProfile}>
+          <Text style={styles.buttonText}>Add Profile +</Text>
+        </TouchableOpacity>
+      </SafeAreaView>
+    </SafeAreaView>
   );
 };
 

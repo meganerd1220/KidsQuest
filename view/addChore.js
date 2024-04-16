@@ -1,13 +1,15 @@
-// AddChoreScreen.js
-
 import React, { useState } from 'react';
-import { SafeAreaView, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { Image, SafeAreaView, Text, TouchableOpacity, TextInput, Alert } from 'react-native';
 import { sendNewChores } from '../model/database';
 import { useUserId } from './userContext';
 import { useRoute, useNavigation } from '@react-navigation/native';
 import styles from './styles';
+import { useUser } from './userContext';
+
 
 const AddChoreScreen = () => {
+  const { user } = useUser();
+
   const route = useRoute();
   const childID = route.params?.childID;
   const [chore, setChore] = useState('');
@@ -32,18 +34,28 @@ const AddChoreScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.topContainer, styles.topContainerProfiles]}>
+        <Text style={styles.titleParent}>Welcome {user.name}</Text>
+        <Image style={styles.minilogo} source={require('../images/logo.png')} />
+      </SafeAreaView >
+      <SafeAreaView style={styles.squareContainer}>
+      <Image style={styles.minilogo} source={require('../images/logo.png')} />
+
       <TextInput
         placeholder="Enter Chore"
         style={styles.input}
         value={chore}
         onChangeText={(text) => setChore(text)}
       />
-      <TouchableOpacity style={styles.choreButton} onPress={addChore}>
-        <Text style={styles.choreButtonText}> Add Chore </Text>
+      <TouchableOpacity style={[styles.settingsButton, styles.choreButton]} onPress={addChore}>
+        <Text style={styles.buttonText}> Add Chore </Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.choreButton} onPress={displayChores}>
-        <Text style={styles.choreButtonText}> See Chores </Text>
+      <TouchableOpacity style={[styles.settingsButton, styles.choreButton]} onPress={displayChores}>
+        <Text style={styles.buttonText}> See Chores </Text>
       </TouchableOpacity>
+
+      </SafeAreaView>
+
     </SafeAreaView>
   );
 };

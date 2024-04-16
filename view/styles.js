@@ -3,81 +3,195 @@ import { StyleSheet } from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "lightblue",
+    backgroundColor: "#fff",
     alignItems: "center",
     justifyContent: "center",
     width: "100%",
   },
-  keyboard: {
-    flex: 1,
-    backgroundColor: "lightgreen",
+  containerFirstProfile: {
+    marginTop: 8,
+
+  },
+  ContainerProfiles: {
+    width: "100%",
+    backgroundColor: "white"
+  },
+  squareContainer: {
+    backgroundColor: "#34C0C2",
     alignItems: "center",
     justifyContent: "center",
-    width: "100%",
+    width: "90%",
+    height: "auto",
+    borderRadius: 30,
+    padding: 20,
 
+
+  },
+  topContainer: {
+    backgroundColor: '#fff',
+    width: '100%',
+    alignItems: 'center',
+    paddingTop: 20, 
+    paddingBottom: 30, 
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 2, 
+    elevation: 2, 
+    position: 'absolute', 
+    top: 0,
+    zIndex: 1, 
+  },
+  topContainerProfiles: {
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    justifyContent: 'space-between', 
+    marginTop: 50,
+  },
+
+  buttonContainer: {
+    width: "100%",
+    backgroundColor: "red",
+  },
+  settingsButton: {
+    backgroundColor: '#FEFDEC', 
+    paddingVertical: 15,
+    paddingHorizontal: 30,
+    borderRadius: 30,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+  settingsFormat: {
+    marginTop: 110,
+    left: 120,
+  },
+  addFormat: {
+    alignItems: "center"
+
+  },
+  choreButton: {
+    marginTop: 20,
+    marginBottom: 20
+
+  },
+  ProfileButton: {
+    backgroundColor: '#FEFDEC',
+    paddingVertical: 60,
+    paddingHorizontal: 100,
+    borderRadius: 40,
+    shadowColor: '#000',
+    marginBottom: 15,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3.84,
+    elevation: 5,
+  },
+
+  choreItem: {
+    padding: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#fff',
+    marginBottom: 10,
+  },
+  choreText: {
+    fontSize: 20,
+    color: "#fff",
+    fontFamily: "Arial"
   },
   title: {
     fontSize: 40,
     color: "#fff",
-    marginBottom: 50,
-    marginTop: 70,  
+    marginBottom: 30,
+    marginTop: 20,
     fontWeight: "bold",
+    marginBottom: 1,
+
+  },
+  titleParent: {
+    fontSize: 20,
+    color: "gray",
+    marginBottom: 30,
+    marginTop: 20,
+    fontWeight: "bold",
+    left: 100
+
   },
   input: {
     backgroundColor: "#fff",
     padding: 10,
     width: "80%",
-    marginTop: 15,
     color: "#000",
     borderRadius: 20,
+    marginTop: 10,
+    width: '80%'
   },
-  choreButton: {
-    backgroundColor: "#007BFF",
-    paddingVertical: 20,
-    paddingHorizontal: 50,
-    borderRadius: 10,
-    marginTop: 50,
-  },
-  choreButtonText: {
-    fontSize: 18,
-    color: "#fff",
-    fontWeight: "bold",
-    textAlign: "center",
-    textTransform: "uppercase",
+  firstinput: {
+    marginTop: 40,
   },
   button: {
-    backgroundColor: "#007BFF",
+    backgroundColor: 'white',
     paddingVertical: 15,
     paddingHorizontal: 30,
-    borderRadius: 10,
-    marginTop: 50,
+    borderRadius: 30,
+    marginTop: 25,
+    marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3.84,
+    elevation: 5, 
   },
-  buttonDelete: {
-    backgroundColor: "#FDFD96",
-    borderRadius: 2,
-    position: "absolute",
-    borderColor: "#007BFF"
-  },
+
   buttonText: {
     fontSize: 18,
-    color: "#fff",
+    color: "#34C0C2",
     fontWeight: "bold",
     textAlign: "center",
-    textTransform: "uppercase",
   },
-  optionsaccount: {
-    marginTop: 25,
-    color: '#007BFF',
-    textDecorationLine: 'underline',
+  forgotPassword: {
+    marginTop: 10, 
+  },
+  forgotPasswordText: {
+    color: '#ffff', 
+    fontWeight: "bold",
     fontSize: 15,
+    textAlign: "left"
   },
-  createAccountText: {
-    marginTop: 10,
-    color: '#007BFF',
-    textDecorationLine: 'underline',
-
+  optionsaccount: { 
+    marginTop: 25,
+    color: '#ffff',
+    fontWeight: "bold",
+    fontSize: 15,
+    textAlign: "right",
+    marginTop: 0,
+    marginBottom: 25,
+  },
+  logo: {
+    width: 200, 
+    height: 200,
+    resizeMode: 'contain',
+  },
+  minilogo: {
+    width: 100, 
+    height: 100,
+    resizeMode: 'contain',
   },
   googleButton: {
+    marginTop: 15,
     flexDirection: 'column',
     alignItems: 'center',
   },
@@ -86,75 +200,20 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     marginRight: 10,
-    alignItems: "center",
   },
-  googleText: {
-    fontSize: 17,
-    color: "white",
+  googleButtonText: {
+    color: '#34C0C2', 
     fontWeight: "bold",
+    fontSize: 15,
   },
-  btnSettings: {
-    backgroundColor: "#808080",
-    paddingVertical: 15,
-    paddingHorizontal: 30,
-    borderRadius: 50,
-    marginTop: 25,
-    marginBottom: 25
+  signupText: {
+    marginTop: 15, 
   },
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(173, 216, 230, 0.7)', // Blueish background
-
+  signupTextContent: {
+    color: '#34C0C2', 
+    fontWeight: "bold",
+    fontSize: 15,
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  modalButton: {
-    backgroundColor: 'blue',
-    borderRadius: 5,
-    padding: 10,
-    elevation: 2,
-  },
-  modalButtonText: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  itemContainer: {
-    backgroundColor: '#fff',
-    padding: 20,
-    marginVertical: 8,
-    marginHorizontal: 16,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: '#007BFF',
-  },
-  itemText: {
-    fontSize: 18,
-    color: '#000',
-  },
-  
 });
-
-
 
 export default styles;

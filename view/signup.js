@@ -68,54 +68,57 @@ const SignUpScreen = ({ navigation }) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}>
-        <Text style={styles.title}>Kids Quest</Text>
-        <Text style={styles.title}>Sign Up Page</Text>
-        <TextInput
-          placeholder="Name"
-          value={name}
-          onChangeText={(text) => setname(text)}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Last name"
-          value={lastn}
-          onChangeText={(text) => setlastn(text)}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setemail(text)}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Username"
-          value={username}
-          onChangeText={(text) => setusername(text)}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setpassword(text)}
-          keyboardType="visible-password"
-          secureTextEntry
-          style={styles.input}
-        />
-        <TouchableOpacity style={styles.button} onPress={signup}>
-          <Text style={styles.buttonText}>Create account</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.googleButton} onPress={googlesign}>
-          <Image
-            source={{ uri: 'https://cdn.iconscout.com/icon/free/png-256/free-google-1772223-1507807.png' }}
-            style={styles.googleIcon}
-          />
-          <Text style={styles.optionsaccount}>Sign Up with Google</Text>
-        </TouchableOpacity>
+        <SafeAreaView style={styles.topContainer}>
+          <Image style={styles.minilogo} source={require('../images/logo.png')} />
 
-        <Text onPress={backlogin} style={styles.optionsaccount}>
-          Already have an account?
-        </Text>
+        </SafeAreaView>
+        <SafeAreaView style={styles.squareContainer}>
+          <Text style={styles.title}>Create an Account</Text>
+            <TextInput
+              placeholder="Name"
+              value={name}
+              onChangeText={(text) => setname(text)}
+              style={styles.input}
+            />
+            <TextInput
+              placeholder="Last name"
+              value={lastn}
+              onChangeText={(text) => setlastn(text)}
+              style={styles.input}
+            />
+            <TextInput
+              placeholder="Email"
+              value={email}
+              onChangeText={(text) => setemail(text)}
+              style={styles.input}
+            />
+            <TextInput
+              placeholder="Username"
+              value={username}
+              onChangeText={(text) => setusername(text)}
+              style={styles.input}
+            />
+            <TextInput
+              placeholder="Password"
+              value={password}
+              onChangeText={(text) => setpassword(text)}
+              keyboardType="visible-password"
+              secureTextEntry
+              style={styles.input}
+            />
+          <TouchableOpacity style={styles.button} onPress={signup}>
+            <Text style={styles.buttonText}>Create account</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity style={styles.googleButton} onPress={googlesign}>
+
+            <Text style={styles.optionsaccount}>Sign Up with Google</Text>
+          </TouchableOpacity>
+
+          <Text onPress={backlogin} style={styles.optionsaccount}>
+            Already have an account?
+          </Text>
+        </SafeAreaView>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

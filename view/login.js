@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
-import {
-  SafeAreaView, Text, TouchableOpacity, TextInput, Alert, Image,
-  KeyboardAvoidingView, Platform
-} from 'react-native';
+import { Image, SafeAreaView, Text, TouchableOpacity, TextInput, Alert, KeyboardAvoidingView, Platform } from 'react-native';
 import styles from './styles';
 import { verifyUserCredentials, getUserInfo } from '../model/database';
-import { useUser  } from './userContext';
+import { useUser } from './userContext';
 
 const LoginScreen = ({ navigation }) => {
   const { setUser } = useUser();
@@ -30,14 +27,13 @@ const LoginScreen = ({ navigation }) => {
       }
     }
   };
-  
+
+  const forgotPassword = () => {
+    navigation.navigate("forgotPassword");
+  }
 
   const signup = () => {
     navigation.navigate('SignUp');
-  };
-
-  const forgotPassword = () => {
-   navigation.navigate("forgotPassword"); 
   }
 
   const signInWithGoogle = async () => {
@@ -49,37 +45,36 @@ const LoginScreen = ({ navigation }) => {
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={styles.container}>
+        <Image style={styles.logo} source={require('../images/logo.png')} />
         <Text style={styles.title}>Kids Quest</Text>
-        <TextInput
-          placeholder="Username"
-          value={username}
-          onChangeText={(text) => setUsername(text)}
-          style={styles.input}
-        />
-        <TextInput
-          placeholder="Password"
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-          keyboardType="visible-password"
-          secureTextEntry
-          style={styles.input}
-        />
-        <Text onPress={forgotPassword} style={styles.optionsaccount}>
-          Forgot Password?
-        </Text>
-        <TouchableOpacity style={styles.button} onPress={handleVerify}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
+        <SafeAreaView style={styles.squareContainer}>
+            <TextInput
+              placeholder="Username"
+              value={username}
+              onChangeText={(text) => setUsername(text)}
+              style={[styles.input, styles.firstinput]}
+              />
+            <TextInput
+              placeholder="Password"
+              value={password}
+              onChangeText={(text) => setPassword(text)}
+              keyboardType="visible-password"
+              secureTextEntry
+              style={styles.input}
+            />
+          <TouchableOpacity style={styles.forgotPassword} onPress={forgotPassword}>
+            <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={handleVerify}>
+            <Text style={styles.buttonText}>Login</Text>
+          </TouchableOpacity>
+        </SafeAreaView>
         <TouchableOpacity style={styles.googleButton} onPress={signInWithGoogle}>
-          <Image
-            source={{ uri: 'https://cdn.iconscout.com/icon/free/png-256/free-google-1772223-1507807.png' }}
-            style={styles.googleIcon}
-          />
-          <Text style={styles.optionsaccount}>Sign in with Google</Text>
+          <Text style={styles.googleButtonText}>Sign in with Google</Text>
         </TouchableOpacity>
-        <Text onPress={signup} style={styles.optionsaccount}>
-          Don't have an account?
-        </Text>
+        <TouchableOpacity style={styles.signupText} onPress={signup}>
+          <Text style={styles.signupTextContent}>Create new Account</Text>
+        </TouchableOpacity>
       </KeyboardAvoidingView>
     </SafeAreaView>
   );

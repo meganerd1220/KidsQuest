@@ -1,7 +1,5 @@
-// displayChores.js
-
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity } from 'react-native';
+import { Image, SafeAreaView, Text, FlatList, TouchableOpacity } from 'react-native';
 import { getChores } from '../model/database';
 import { useUser } from './userContext';
 import { useRoute } from '@react-navigation/native';
@@ -28,20 +26,27 @@ const DisplayChoresScreen = () => {
   };
 
   const renderItem = ({ item }) => (
-    <TouchableOpacity style={styles.itemContainer}>
-      <Text style={styles.itemText}>{item}</Text>
-    </TouchableOpacity>
+    <SafeAreaView style={styles.choreItem}>
+      <Text style={styles.choreText}>{item}</Text>
+    </SafeAreaView>
   );
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Chores List</Text>
-      <FlatList
-        data={chores}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-      />
-    </View>
+    <SafeAreaView style={styles.container}>
+      <SafeAreaView style={[styles.topContainer, styles.topContainerProfiles]}>
+        <Text style={styles.titleParent}>Welcome {user.name}</Text>
+        <Image style={styles.minilogo} source={require('../images/logo.png')} />
+      </SafeAreaView >
+      <SafeAreaView style={styles.squareContainer}>
+
+        <Text style={styles.title}>Chores List</Text>
+        <FlatList
+          data={chores}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      </SafeAreaView>
+    </SafeAreaView>
   );
 };
 

@@ -4,12 +4,12 @@ import {
     KeyboardAvoidingView, Platform
 } from 'react-native';
 import styles from './styles';
-import { updatePassword, verifyUserCredentials } from '../model/database'; 
+import { updatePassword, verifyUserCredentials } from '../model/database';
 import { useUser } from './userContext';
 
 const PasswordReset = ({ navigation }) => {
     const { user } = useUser();
-    
+
     console.log('User:', user);
 
     const [oldPassword, setOldPassword] = useState('');
@@ -39,7 +39,7 @@ const PasswordReset = ({ navigation }) => {
 
         if (success) {
             Alert.alert("Success", "Password updated successfully.");
-            navigation.navigate('Settings'); 
+            navigation.navigate('Settings');
         } else {
             Alert.alert("Password Changed Sucessfully");
         }
@@ -47,14 +47,18 @@ const PasswordReset = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
+            <SafeAreaView style={[styles.topContainer, styles.topContainerProfiles]}>
+                <Text style={styles.titleParent}>Welcome {user.name}</Text>
+                <Image style={styles.minilogo} source={require('../images/logo.png')} />
+            </SafeAreaView >
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                style={styles.container}>
+                style={styles.squareContainer}>
                 <Text style={styles.title}>Kids Quest</Text>
                 <TextInput
                     placeholder="Username"
                     value={user?.username}
-                    editable={false} 
+                    editable={false}
                     style={styles.input}
                 />
                 <TextInput
