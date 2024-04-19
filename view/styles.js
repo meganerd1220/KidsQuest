@@ -8,6 +8,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: "100%",
   },
+
+
   containerFirstProfile: {
     marginTop: 8,
 
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
 
 
   settingsFormat: {
-    marginTop: 110,
+    marginTop: 85,
     left: 120,
   },
   addFormat: {
@@ -86,8 +88,10 @@ const styles = StyleSheet.create({
   },
   ProfileButton: {
     backgroundColor: '#34C0C2',
-    paddingVertical: 60,
-    paddingHorizontal: 100,
+    paddingVertical: 20,
+    paddingHorizontal: 80,
+    width: "95%",
+    marginLeft: 10,
     borderRadius: 40,
     shadowColor: '#000',
     marginBottom: 15,
@@ -101,6 +105,7 @@ const styles = StyleSheet.create({
   },
 
   kidsProfileImage:{
+    marginTop: 10, 
     width: 100, 
     height: 100,
     borderRadius: 100,
@@ -117,6 +122,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  imageColumn: {
+    marginRight: 10,
+  },
+  textButtonColumn: {
+    flex: 1,
+    
+  },
+
   
   
   choreItem: {
@@ -271,7 +284,25 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     borderRadius: 50, 
 
-  }
+  }, 
+  button2: {
+    backgroundColor: '#FEFDEC',
+    width: 100, 
+    height: 50, 
+    alignItems: "center",
+    borderRadius: 30,
+    marginTop: 25,
+    marginBottom: 15,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.5,
+    shadowRadius: 3.84,
+    elevation: 5, 
+  },
+  
 });
 
 export default styles;

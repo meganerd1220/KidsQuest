@@ -11,19 +11,21 @@ const Profile = ({ id, name, onDelete, navigation }) => {
   };
 
   return (
-    <SafeAreaView style={[styles.container, styles.ContainerProfiles]}>
-      <TouchableOpacity style={styles.ProfileButton} onPress={goToChores}>
-        <View style={styles.profileContainer}>
-          <View style={styles.rowContainer}>
-            <Image source={require('../images/kid.png')} style={styles.kidsProfileImage} /> 
-            <Text title={name} color="white" style={styles.nameText}>{name}</Text>
-          </View>
-          <TouchableOpacity style={styles.settingsButton} onPress={onDelete}>
-            <Text style={styles.buttonText}>Delete Profile</Text>
+    <TouchableOpacity style={styles.ProfileButton} onPress={goToChores}>
+      <View style={styles.rowContainer}>
+        
+        <View style={styles.imageColumn}>
+          <Image source={require('../images/kid.png')} style={styles.kidsProfileImage} />
+        </View>
+        
+        <View style={styles.textButtonColumn}>
+          <Text title={name} color="white" style={styles.nameText}>{name}</Text>
+          <TouchableOpacity style={styles.button2} onPress={onDelete}>
+            <Text style={styles.buttonText}>Delete</Text>
           </TouchableOpacity>
         </View>
-      </TouchableOpacity>
-    </SafeAreaView>
+      </View>
+    </TouchableOpacity>
   );
   
 };
@@ -84,6 +86,7 @@ const KidProfiles = () => {
           data={childrens}
           renderItem={renderItem}
         />
+        
         <TouchableOpacity style={[styles.settingsButton, styles.addFormat]} onPress={goToAddProfile}>
           <Text style={styles.buttonText}>Add Profile +</Text>
         </TouchableOpacity>
