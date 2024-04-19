@@ -36,7 +36,7 @@ const AddChild = ({ navigation }) => {
         <Image style={styles.minilogo} source={require('../images/logo.png')} />
       </SafeAreaView >
       <View style={styles.squareContainer}>
-      <Text style={styles.title}>ADD PROFILE</Text>
+      <Text style={styles.title2}>ADD PROFILE</Text>
 
         <View style={styles.roundImage}>
           <Image style={ styles.roundImage } source={require('../images/profile.jpg')} />

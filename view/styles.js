@@ -69,6 +69,8 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5,
   },
+
+
   settingsFormat: {
     marginTop: 110,
     left: 120,
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
 
   },
   ProfileButton: {
-    backgroundColor: '#FEFDEC',
+    backgroundColor: '#34C0C2',
     paddingVertical: 60,
     paddingHorizontal: 100,
     borderRadius: 40,
@@ -98,6 +100,25 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
 
+  kidsProfileImage:{
+    width: 100, 
+    height: 100,
+    borderRadius: 100,
+    
+  
+  },
+  nameText: {
+    color: 'white',
+    fontSize: 30,
+    marginLeft: 10,
+    fontWeight: "bold"
+  },
+  rowContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  
+  
   choreItem: {
     padding: 10,
     borderBottomWidth: 1,
@@ -205,9 +226,10 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
   minilogo: {
-    width: 100, 
-    height: 100,
+    width: 70, 
+    height: 70,
     resizeMode: 'contain',
+    marginEnd: 10
   },
   googleButton: {
     marginTop: 15,

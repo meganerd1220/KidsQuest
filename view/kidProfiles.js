@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import { Alert, Button, FlatList, Text, TouchableOpacity, Image, SafeAreaView } from 'react-native';
+import { View, Alert, Button, FlatList, Text, TouchableOpacity, Image, SafeAreaView } from 'react-native';
 import { useFocusEffect, useNavigation } from '@react-navigation/native';
 import { useUser } from './userContext';
 import { getChildProfiles, deleteChildProfile } from '../model/database';
@@ -13,11 +13,19 @@ const Profile = ({ id, name, onDelete, navigation }) => {
   return (
     <SafeAreaView style={[styles.container, styles.ContainerProfiles]}>
       <TouchableOpacity style={styles.ProfileButton} onPress={goToChores}>
-        <Text title={name} color="white">{name}</Text>
-        <Button style={styles.buttonText} title={"Delete Profile"} onPress={onDelete} />
+        <View style={styles.profileContainer}>
+          <View style={styles.rowContainer}>
+            <Image source={require('../images/kid.png')} style={styles.kidsProfileImage} /> 
+            <Text title={name} color="white" style={styles.nameText}>{name}</Text>
+          </View>
+          <TouchableOpacity style={styles.settingsButton} onPress={onDelete}>
+            <Text style={styles.buttonText}>Delete Profile</Text>
+          </TouchableOpacity>
+        </View>
       </TouchableOpacity>
     </SafeAreaView>
   );
+  
 };
 
 const KidProfiles = () => {
