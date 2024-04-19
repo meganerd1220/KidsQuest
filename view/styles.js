@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   imageColumn: {
-    marginRight: 10,
+    marginRight: 15,
   },
   textButtonColumn: {
     flex: 1,
