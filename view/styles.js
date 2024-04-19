@@ -114,7 +114,7 @@ const styles = StyleSheet.create({
   },
   nameText: {
     color: 'white',
-    fontSize: 30,
+    fontSize: 25,
     marginLeft: 10,
     fontWeight: "bold"
   },
@@ -143,6 +143,17 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontFamily: "Arial"
   },
+  choreCount: {
+    fontSize: 20,
+    color: "#fff",
+    fontWeight: "bold",
+    textAlign: "center",
+    borderRadius: 80,
+    backgroundColor: "#FEFDEC",
+    color: "#34C0C2", 
+    height: 30
+  },
+  
   title: {
     fontSize: 40,
     color: "#fff",

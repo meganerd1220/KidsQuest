@@ -148,20 +148,28 @@ export const sendChildProfile = async (name, parentId) => {
 export const deleteChildProfile = async (id, name) => {
   try {
     const querySnapshot = await getDocs(collection(firestoreInstance, 'children'));
+    let docIdToDelete = null;
+
     querySnapshot.forEach((doc) => {
       // Extract data from each document
       const data = doc.data();
-      if (data.id == id && data.name == name)
-        docName = doc;
+      if (data.id === id && data.name === name) {
+        docIdToDelete = doc.id;
+      }
     });
 
-    await deleteDoc(doc(firestoreInstance, "children", docName.id));
-
-    console.log('Document successfully deleted!');
+    if (docIdToDelete) {
+      await deleteDoc(doc(firestoreInstance, "children", docIdToDelete));
+      console.log('Document successfully deleted!');
+    } else {
+      console.error('Document not found for deletion.');
+    }
   } catch (error) {
     console.error('Error removing document: ', error);
+    throw error;
   }
 };
+
 
 export const sendNewChores = async (chore, userId, childID) => {
   const choresCollection = collection(firestoreInstance, 'Chores');
@@ -276,3 +284,4 @@ export const deleteChore = async (parentId, childId, chore) => {
     throw error;
   }
 };
+
