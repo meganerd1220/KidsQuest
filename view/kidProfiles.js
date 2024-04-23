@@ -16,11 +16,12 @@ const Profile = ({ id, name, onDelete, navigation, choresCount }) => { // Pass c
         <View style={styles.imageColumn}>
           <Image source={require('../images/kid.png')} style={styles.kidsProfileImage} />
         </View>
+        
         <View style={styles.textButtonColumn}>
           <Text title={name} color="white" style={styles.nameText}>{name}</Text>
           <Text style={styles.choreCount}>Chores: {choresCount}</Text> 
           <View style={{height:50}}/>
-          <TouchableOpacity style={styles.settingsButton} onPress={onDelete}>
+          <TouchableOpacity style={[styles.settingsButton, styles.choreButton]} onPress={onDelete}>
             <Text style={styles.buttonText}>Delete</Text>
           </TouchableOpacity>
         </View>
@@ -86,6 +87,7 @@ const KidProfiles = () => {
         <Text style={styles.titleParent}>Welcome {user.name}</Text>
         <Image style={styles.minilogo} source={require('../images/logo.png')} />
       </SafeAreaView >
+      <View style={{height:25}}/>
       <SafeAreaView style={styles.container}>
         <TouchableOpacity style={[styles.settingsButton, styles.settingsFormat]} onPress={() => navigation.navigate('Settings')}>
           <Text style={styles.buttonText}>Settings</Text>
